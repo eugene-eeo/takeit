@@ -36,6 +36,8 @@ def choose_urls(urls):
         choices=list(urls),
     )
     answers = inquirer.prompt([checkbox])
+    if answers is None:
+        return []
     return answers['urls']
 
 

@@ -1,6 +1,11 @@
 takeit
 ======
 
+    "Doth thee misseth the times wh're th're w're nay
+    dependency management? yeah, me neith'r."
+
+    -- Shakespeare, probably
+
 A script downloader for quick and dirty front-end prototyping.
 No, really. All it does is look up the library on cdnjs, does
 some scraping and then downloads the files for you. Usage:

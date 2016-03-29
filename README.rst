@@ -1,18 +1,17 @@
 takeit
 ======
 
-    "Doth thee misseth the times wh're th're w're nay
-    dependency management? yeah, me neith'r."
+    "Awake! Avast! Hold tight your buns, if buns you do hold
+    dear. For time has come to wake and run and not give way
+    to fear!"
 
-    -- Shakespeare, probably
+    -- Earl of Lemongrab
 
 A script downloader for quick and dirty front-end prototyping.
 No, really. All it does is look up the library on cdnjs, does
-some scraping and then downloads the files for you. Usage:
+some scraping and then downloads the files for you. Usage::
 
-.. code-block:: shell
-
-    $ takeit jquery
+    $ takeit jquery katex==0.5.1
     https://cdnjs.com/libraries/jquery
     [?] Download: 
     > o jquery.js
@@ -22,4 +21,4 @@ some scraping and then downloads the files for you. Usage:
       o jquery.slim.min.js
       o jquery.slim.min.map
 
-*Take it away.*
+*Take it away* (to the dungeon).

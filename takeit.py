@@ -9,7 +9,7 @@ Usage:
 
 import sys
 import os.path as path
-from collections import OrderedDict
+from collections import OrderedDict, namedtuple
 
 from requests import get
 from bs4 import BeautifulSoup
@@ -18,17 +18,25 @@ from docopt import docopt
 import inquirer
 
 
-QUERY_URL = 'https://cdnjs.com/libraries{/id}'
+QUERY_URL = 'https://cdnjs.com/libraries{/id}{/version}'
+Spec = namedtuple('Spec', ['id', 'version'])
 
 
-def get_urls(package):
-    url = expand(QUERY_URL, id=package)
+def parse_package_spec(string):
+    parts = string.split('==', 1)
+    if len(parts) == 1:
+        parts += [None]
+    return Spec(*parts)
+
+
+def get_urls(pkg):
+    url = expand(QUERY_URL, id=pkg.id, version=pkg.version)
+    print(url)
     res = get(url)
     res.raise_for_status()
     doc = BeautifulSoup(res.text, 'html.parser')
-    for node in doc.find_all('p'):
-        if 'library-url' in node.attrs.get('class', []):
-            yield str(node.string)
+    for node in doc.find_all('p', class_='library-url'):
+        yield str(node.string)
 
 
 def get_filenames(urls):
@@ -63,5 +71,6 @@ def fetch_scripts(pairs):
 def main():
     arguments = docopt(__doc__, version='takeit 0.1.0')
     for item in arguments['<id>']:
-        pairs = get_filenames(get_urls(item))
+        pkg = parse_package_spec(item)
+        pairs = get_filenames(get_urls(pkg))
         fetch_scripts(choose_urls(pairs))

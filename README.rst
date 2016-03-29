@@ -13,6 +13,7 @@ some scraping and then downloads the files for you. Usage:
 .. code-block:: shell
 
     $ takeit jquery
+    https://cdnjs.com/libraries/jquery
     [?] Download: 
     > o jquery.js
       o jquery.min.js

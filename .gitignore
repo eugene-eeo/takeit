@@ -1,9 +1,6 @@
-#### joe made this: http://goel.io/joe
-
-#####=== Python ===#####
-
 # Byte-compiled / optimized / DLL files
 __pycache__/
+takeit.egg-info/
 *.py[cod]
 *$py.class
 
@@ -60,4 +57,3 @@ docs/_build/
 
 # PyBuilder
 target/
-

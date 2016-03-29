@@ -27,7 +27,7 @@ Install
 -------
 
 Currently the only way to install it is to clone the repo and
-then do a pip-install. It will symlink the `takeit` binary to
+then do a pip-install. It will add a ``takeit`` binary to
 somewhere in your PATH::
 
     $ git clone git@github.com:eugene-eeo/takeit.git

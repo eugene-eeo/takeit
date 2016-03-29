@@ -9,6 +9,9 @@ Usage:
 
 import sys
 import os.path as path
+import logging
+from collections import OrderedDict
+
 from requests import get
 from bs4 import BeautifulSoup
 from uritemplate import expand
@@ -16,6 +19,7 @@ from docopt import docopt
 import inquirer
 
 
+LOGGER = logging.getLogger(__name__)
 QUERY_URL = 'https://cdnjs.com/libraries{/id}'
 
 
@@ -35,16 +39,15 @@ def get_filenames(urls):
 
 
 def choose_urls(pairs):
-    pairs = dict(pairs)
-    checkbox = inquirer.Checkbox(
+    pairs = OrderedDict(pairs)
+    res = inquirer.prompt([inquirer.Checkbox(
         'urls',
         message='Download',
-        choices=sorted(pairs),
-    )
-    answers = inquirer.prompt([checkbox])
-    if answers is None:
+        choices=list(pairs),
+    )])
+    if res is None:
         return
-    for pairs in answers['urls']:
+    for item in res['urls']:
         yield item, pairs[item]
 
 
@@ -53,13 +56,20 @@ def fetch_scripts(pairs):
         r = get(url, stream=True)
         r.raise_for_status()
 
-        print("Downloading %s" % filename)
+        LOGGER.info("Downloading %s" % filename)
         with open(filename, 'wb') as handle:
             for block in r.iter_content(1024):
                 handle.write(block)
 
 
 def main():
+    LOGGER.setLevel(logging.DEBUG)
+
+    ch = logging.StreamHandler(sys.stdout)
+    ch.setLevel(logging.DEBUG)
+    ch.setFormatter(logging.Formatter('%(levelname)s: %(message)s'))
+    LOGGER.addHandler(ch)
+
     arguments = docopt(__doc__, version='takeit 0.1.0')
     for item in arguments['<id>']:
         pairs = get_filenames(get_urls(item))

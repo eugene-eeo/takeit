@@ -53,7 +53,7 @@ def fetch_scripts(pairs):
         r = get(url, stream=True)
         r.raise_for_status()
 
-        print("Downloading %s " % filename)
+        print("Downloading %s" % filename)
         with open(filename, 'wb') as handle:
             for block in r.iter_content(1024):
                 handle.write(block)

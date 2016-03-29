@@ -22,3 +22,13 @@ some scraping and then downloads the files for you. Usage::
       o jquery.slim.min.map
 
 *Take it away* (to the dungeon).
+
+Install
+-------
+
+Currently the only way to install it is to clone the repo and
+then do a pip-install. It will symlink the `takeit` binary to
+somewhere in your PATH::
+
+    $ git clone git@github.com:eugene-eeo/takeit.git
+    $ cd takeit && pip install .

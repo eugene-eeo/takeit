@@ -29,26 +29,31 @@ def get_urls(package):
             yield str(node.string)
 
 
-def choose_urls(urls):
+def get_filenames(urls):
+    for url in urls:
+        yield path.basename(url), url
+
+
+def choose_urls(pairs):
+    pairs = dict(pairs)
     checkbox = inquirer.Checkbox(
         'urls',
         message='Download',
-        choices=list(urls),
+        choices=sorted(pairs),
     )
     answers = inquirer.prompt([checkbox])
     if answers is None:
-        return []
-    return answers['urls']
+        return
+    for pairs in answers['urls']:
+        yield item, pairs[item]
 
 
-def fetch_scripts(urls):
-    for url in urls:
+def fetch_scripts(pairs):
+    for filename, url in pairs:
         r = get(url, stream=True)
         r.raise_for_status()
 
-        filename = path.basename(url)
         print("Downloading %s " % filename)
-
         with open(filename, 'wb') as handle:
             for block in r.iter_content(1024):
                 handle.write(block)
@@ -57,5 +62,5 @@ def fetch_scripts(urls):
 def main():
     arguments = docopt(__doc__, version='takeit 0.1.0')
     for item in arguments['<id>']:
-        urls = get_urls(item)
-        fetch_scripts(choose_urls(urls))
+        pairs = get_filenames(get_urls(item))
+        fetch_scripts(choose_urls(pairs))

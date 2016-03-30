@@ -14,14 +14,23 @@ import sys
 import os.path as path
 from collections import OrderedDict, namedtuple
 
+import editor
 from requests import get
 from bs4 import BeautifulSoup
 from uritemplate import expand
 from docopt import docopt
-import inquirer
+
+
+if sys.version_info[0] == 3:
+    to_bytes = lambda a: a.encode('utf-8')
+    to_str   = lambda a: a.decode('utf-8')
+else:
+    to_bytes = str
+    to_str   = unicode
 
 
 QUERY_URL = 'https://cdnjs.com/libraries{/id}{/version}'
+MESSAGE = "# Delete the files which you don't want downloaded\n"
 Spec = namedtuple('Spec', ['id', 'version'])
 
 
@@ -49,15 +58,14 @@ def get_filenames(urls):
 
 def choose_urls(pairs):
     pairs = OrderedDict(pairs)
-    res = inquirer.prompt([inquirer.Checkbox(
-        'urls',
-        message='Download',
-        choices=list(pairs),
-    )])
-    if res is None:
-        return
-    for item in res['urls']:
-        yield item, pairs[item]
+    choices = editor.edit(contents=to_bytes(MESSAGE + '\n'.join(pairs)))
+    for line in to_str(choices).splitlines():
+        line = line.strip()
+        if not line or line.startswith('#'):
+            continue
+        if line not in pairs:
+            continue
+        yield line, pairs[line]
 
 
 def generate_html(pairs):
@@ -82,8 +90,9 @@ def main():
     for item in arguments['<id>']:
         pkg = parse_package_spec(item)
         pairs = get_filenames(get_urls(pkg))
-        choices.extend(choose_urls(pairs))
+        choices.extend(pairs)
 
+    choices = choose_urls(choices)
     if arguments['--html']:
         generate_html(choices)
         return

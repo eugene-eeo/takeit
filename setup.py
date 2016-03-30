@@ -3,6 +3,11 @@ from setuptools import setup
 setup(
     name='takeit',
     version='0.1.0',
+    description='quickly steal files from cdnjs',
+    url='https://github.com/eugene-eeo/takeit',
+    author='Eeo Jun',
+    author_email='packwolf58@gmail.com',
+    license='MIT',
     packages=['takeit'],
     install_requires=[
         'requests==2.9.1',

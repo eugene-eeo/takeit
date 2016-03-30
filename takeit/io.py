@@ -21,19 +21,17 @@ def fetch_index(package):
 
 
 def get_choices(index):
+    index = OrderedDict(index)
     contents = to_b(generate_editor_contents(index))
     output = editor.edit(contents=contents)
-    rv = OrderedDict()
     for item in parse_options(to_s(output)):
         if item not in index:
             continue
-        rv[item] = index[item]
-    return rv
+        yield item, index[item]
 
 
 def download_files(index):
-    for path in index:
-        url = index[path]
+    for path, url in index:
         r = get(url, stream=True)
 
         print("Downloading %s" % path)

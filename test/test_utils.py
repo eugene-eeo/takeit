@@ -51,13 +51,4 @@ def test_flatten():
     indexes = list([f, g])
     index = takeit.utils.flatten(indexes)
 
-    assert list(index.items()) == f + g
-
-
-def test_generate_html():
-    srcs = ['a', 'b']
-    given = takeit.utils.generate_html(srcs)
-    assert list(given) == [
-            '<script src="a"></script>',
-            '<script src="b"></script>',
-            ]
+    assert list(index) == f + g

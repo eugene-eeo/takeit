@@ -32,12 +32,6 @@ def generate_editor_contents(filenames):
 
 
 def flatten(indexes):
-    u = OrderedDict()
     for item in indexes:
-        u.update(item)
-    return u
-
-
-def generate_html(urls):
-    for item in urls:
-        yield '<script src="%s"></script>' % item
+        for v in item:
+            yield v

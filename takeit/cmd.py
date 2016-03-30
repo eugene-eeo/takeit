@@ -13,7 +13,7 @@ Options:
 from docopt import docopt
 from takeit.package import Package
 from takeit.io import fetch_index, get_choices, download_files
-from takeit.utils import flatten, generate_html
+from takeit.utils import flatten
 
 
 # [String] -> [Package]
@@ -33,8 +33,8 @@ def main():
     index = get_choices(index)
 
     if html_mode:
-        for line in generate_html(index):
-            print(line)
+        for _, url in index:
+            print('<script src="%s"></script>' % url)
         return
 
     download_files(index)

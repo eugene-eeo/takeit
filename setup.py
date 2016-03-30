@@ -14,5 +14,8 @@ setup(
     entry_points='''
         [console_scripts]
         takeit=takeit:main
-    '''
+    ''',
+    tests_require=[
+        'pytest',
+    ],
 )

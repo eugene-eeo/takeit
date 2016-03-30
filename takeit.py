@@ -2,9 +2,12 @@
 takeit - minimal script fetcher.
 
 Usage:
-    takeit <id>...
+    takeit [--html] <id>...
     takeit (-h | --help)
     takeit --version
+
+Options:
+    --html   Generate <script> tags
 """
 
 import sys
@@ -57,6 +60,11 @@ def choose_urls(pairs):
         yield item, pairs[item]
 
 
+def generate_html(pairs):
+    for _, url in pairs:
+        print('<script src="%s"></script>' % url)
+
+
 def fetch_scripts(pairs):
     for filename, url in pairs:
         r = get(url, stream=True)
@@ -75,4 +83,8 @@ def main():
         pkg = parse_package_spec(item)
         pairs = get_filenames(get_urls(pkg))
         choices.extend(choose_urls(pairs))
+
+    if arguments['--html']:
+        generate_html(choices)
+        return
     fetch_scripts(choices)

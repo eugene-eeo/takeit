@@ -22,11 +22,11 @@ from takeit.utils import flatten, generate_html
 # {F: U} -download-> Response
 
 def main():
-    arguments = docopt(__doc__, version='takeit 0.1.0')
-    specs = arguments['<id>']
-    html_mode = arguments['--html']
+    args = docopt(__doc__, version='takeit 0.1.0')
+    specs = args['<id>']
+    html_mode = args['--html']
 
-    packages = [Package.from_string(spec) for spec in args]
+    packages = [Package.from_string(spec) for spec in specs]
     indexes = [fetch_index(pkg) for pkg in packages]
 
     index = flatten(indexes)

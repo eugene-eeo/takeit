@@ -21,7 +21,11 @@ from takeit.utils import flatten, generate_html
 # {F: U} -choice-> {F: U}
 # {F: U} -download-> Response
 
-def bootstrap(args, html_mode):
+def main():
+    arguments = docopt(__doc__, version='takeit 0.1.0')
+    specs = arguments['<id>']
+    html_mode = arguments['--html']
+
     packages = [Package.from_string(spec) for spec in args]
     indexes = [fetch_index(pkg) for pkg in packages]
 
@@ -34,10 +38,3 @@ def bootstrap(args, html_mode):
         return
 
     download_files(index)
-
-
-def main():
-    arguments = docopt(__doc__, version='takeit 0.1.0')
-    specs = arguments['<id>']
-    html_mode = arguments['--html']
-    return bootstrap(specs, html_mode)

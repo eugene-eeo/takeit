@@ -22,11 +22,11 @@ from docopt import docopt
 
 
 if sys.version_info[0] == 3:
-    to_bytes = lambda a: a.encode('utf-8')
-    to_str   = lambda a: a.decode('utf-8')
+    to_b = lambda a: a.encode('utf-8')
+    to_s = lambda a: a.decode('utf-8')
 else:
-    to_bytes = str
-    to_str   = unicode
+    to_b = str
+    to_s = unicode
 
 
 QUERY_URL = 'https://cdnjs.com/libraries{/id}{/version}'
@@ -55,16 +55,21 @@ def get_filenames(urls):
         yield path.basename(url), url
 
 
-def choose_urls(pairs):
-    pairs = OrderedDict(pairs)
-    choices = editor.edit(contents=to_bytes(MESSAGE + '\n'.join(pairs)))
-    for line in to_str(choices).splitlines():
+def get_options(s_bytes):
+    for line in to_s(s_bytes).splitlines():
         line = line.strip()
         if not line or line.startswith('#'):
             continue
-        if line not in pairs:
+        yield line
+
+
+def choose_urls(pairs):
+    pairs = OrderedDict(pairs)
+    choices = editor.edit(contents=to_b(MESSAGE + '\n'.join(pairs)))
+    for choice in get_options(choices):
+        if choice not in pairs:
             continue
-        yield line, pairs[line]
+        yield choice, pairs[choice]
 
 
 def generate_html(pairs):

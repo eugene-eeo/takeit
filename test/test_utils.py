@@ -41,13 +41,3 @@ def test_generate_editor_contents():
     files = ['abc', 'def']
     given = utils.generate_editor_contents(files)
     assert given == '\n'.join([utils.MESSAGE] + files)
-
-
-def test_flatten():
-    f = [(1, 1), (2, 2)]
-    g = [(3, 3), (4, 4)]
-
-    indexes = list([f, g])
-    index = utils.flatten(indexes)
-
-    assert list(index) == f + g

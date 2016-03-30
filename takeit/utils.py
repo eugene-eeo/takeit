@@ -28,9 +28,3 @@ def generate_editor_contents(filenames):
     content = [MESSAGE]
     content.extend(filenames)
     return '\n'.join(content)
-
-
-def flatten(indexes):
-    for item in indexes:
-        for v in item:
-            yield v

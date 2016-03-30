@@ -43,7 +43,6 @@ def parse_package_spec(string):
 
 def get_urls(pkg):
     url = expand(QUERY_URL, id=pkg.id, version=pkg.version)
-    print(url)
     res = get(url)
     res.raise_for_status()
     doc = BeautifulSoup(res.text, 'html.parser')

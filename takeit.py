@@ -70,7 +70,9 @@ def fetch_scripts(pairs):
 
 def main():
     arguments = docopt(__doc__, version='takeit 0.1.0')
+    choices = []
     for item in arguments['<id>']:
         pkg = parse_package_spec(item)
         pairs = get_filenames(get_urls(pkg))
-        fetch_scripts(choose_urls(pairs))
+        choices.extend(choose_urls(pairs))
+    fetch_scripts(choices)

@@ -11,7 +11,7 @@ A script downloader for quick and dirty front-end prototyping.
 No, really. All it does is look up the library on cdnjs, does
 some scraping and then downloads the files for you. Usage::
 
-    $ takeit jquery katex==0.5.1
+    $ takeit jquery lodash.js==4.6.1
     https://cdnjs.com/libraries/jquery
     [?] Download: 
     > o jquery.js

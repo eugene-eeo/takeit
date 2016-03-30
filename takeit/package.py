@@ -7,7 +7,6 @@ class Package(object):
     def __init__(self, id, version):
         self.id = id
         self.version = version
-        self.files = None
 
     @property
     def url(self):
@@ -17,7 +16,7 @@ class Package(object):
 
     @classmethod
     def from_string(cls, string):
-        parts = string.split('==', 1)
+        parts = string.rsplit('==', 1)
         if len(parts) == 1:
             parts.append(None)
         return cls(*parts)

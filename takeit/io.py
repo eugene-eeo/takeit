@@ -1,9 +1,17 @@
+import sys
 import editor
 from requests import get
 from collections import OrderedDict
-from takeit.compat import to_b, to_s
 from takeit.utils import (generate_editor_contents, parse_options,
                           get_urls, filename_and_url)
+
+
+if sys.version_info[0] == 3:
+    to_b = lambda a: a.encode('utf-8')
+    to_s = lambda a: a.decode('utf-8')
+else:
+    to_b = str
+    to_s = unicode
 
 
 def fetch_index(package):

@@ -3,7 +3,7 @@ from setuptools import setup
 setup(
     name='takeit',
     version='0.1.0',
-    py_modules=['takeit'],
+    packages=['takeit'],
     install_requires=[
         'requests==2.9.1',
         'python-editor==0.4',
@@ -13,7 +13,7 @@ setup(
     ],
     entry_points='''
         [console_scripts]
-        takeit=takeit:main
+        takeit=takeit.cmd:main
     ''',
     tests_require=[
         'pytest',

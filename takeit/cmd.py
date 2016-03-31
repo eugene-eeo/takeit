@@ -14,6 +14,7 @@ from itertools import chain
 from docopt import docopt
 from takeit.package import Package
 from takeit.io import fetch_index, get_choices, download_files
+from takeit.utils import generate_html
 
 
 # [String] -> [Package]
@@ -34,7 +35,8 @@ def main():
 
     if html_mode:
         for _, url in index:
-            print('<script src="%s"></script>' % url)
+            print(generate_html(url))
         return
 
-    download_files(index)
+    for filename in download_files(index):
+        print('Downloading %s' % filename)

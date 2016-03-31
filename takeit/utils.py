@@ -28,3 +28,14 @@ def generate_editor_contents(filenames):
     content = [MESSAGE]
     content.extend(filenames)
     return '\n'.join(content)
+
+
+def generate_html(filename):
+    _, ext = os.path.splitext(filename)
+    if ext == '.js':
+        return '<script src="%s"></script>' % (filename,)
+
+    if ext == '.css':
+        return '<link rel="stylesheet" href="%s"></link>' % (filename,)
+
+    return '<!-- %s -->' % (filename,)

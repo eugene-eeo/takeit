@@ -34,7 +34,7 @@ def download_files(index):
     for path, url in index:
         r = get(url, stream=True)
 
-        print("Downloading %s" % path)
+        yield path
         with open(path, 'wb') as fp:
             for block in r.iter_content(1024):
                 fp.write(block)

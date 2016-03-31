@@ -36,6 +36,6 @@ def generate_html(filename):
         return '<script src="%s"></script>' % (filename,)
 
     if ext == '.css':
-        return '<link rel="stylesheet" href="%s"></link>' % (filename,)
+        return '<link rel="stylesheet" href="%s" />' % (filename,)
 
     return '<!-- %s -->' % (filename,)

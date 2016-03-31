@@ -41,3 +41,9 @@ def test_generate_editor_contents():
     files = ['abc', 'def']
     given = utils.generate_editor_contents(files)
     assert given == '\n'.join([utils.MESSAGE] + files)
+
+
+def test_generate_html():
+    assert utils.generate_html('f.js') == '<script src="f.js"></script>'
+    assert utils.generate_html('f.css') == '<link rel="stylesheet" href="f.css" />'
+    assert utils.generate_html('f.d') == '<!-- f.d -->'

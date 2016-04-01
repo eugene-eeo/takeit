@@ -13,6 +13,7 @@ some scraping and then downloads the files for you. Usage::
 
     $ takeit jquery lodash.js==4.6.1
     $ takeit --html jquery
+    $ takeit --html jquery > index.html
 
 *Take it away* (to the dungeon).
 

@@ -1,5 +1,6 @@
 import os
 from bs4 import BeautifulSoup
+from itertools import chain
 
 
 MESSAGE = "# Delete the files which you don't want downloaded"
@@ -25,9 +26,7 @@ def parse_options(string):
 
 
 def generate_editor_contents(filenames):
-    content = [MESSAGE]
-    content.extend(filenames)
-    return '\n'.join(content)
+    return '\n'.join(chain([MESSAGE], filenames))
 
 
 def generate_html(filename):

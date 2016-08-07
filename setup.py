@@ -6,7 +6,7 @@ setup(
     description='quickly steal files from cdnjs',
     url='https://github.com/eugene-eeo/takeit',
     author='Eeo Jun',
-    author_email='packwolf58@gmail.com',
+    author_email='141bytes@gmail.com',
     license='MIT',
     packages=['takeit'],
     install_requires=[
